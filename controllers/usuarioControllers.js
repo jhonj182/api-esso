@@ -48,9 +48,26 @@ exports.obtenerusuario = async (req, res, next) => {
 // Actualiza un registro por su ID
 exports.actualizarusuario = async (req, res, next) => {
     try {
+        
         const usuario = await Usuario.findOneAndUpdate({_id : req.params.id}, req.body, {
             new: true
         });
+        res.json(usuario);
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+}
+// Actualiza un registro por su ID
+exports.recargarusuario = async (req, res, next) => {
+    try {
+        // console.log(req)
+        cantidad = (req.body.params.cantidad);
+        console.log(cantidad)
+        const filter = { _id : req.params.id };
+        const update = { saldo:cantidad };
+        const usuario = await Usuario.updateOne(filter, update,{new:true});
+        console.log('nuevo saldo : ' + usuario.saldo)
         res.json(usuario);
     } catch (error) {
         console.log(error);
@@ -63,6 +80,23 @@ exports.eliminarusuario = async(req, res, next) => {
     try {
         await Usuario.findOneAndDelete({_id : req.params.id});
         res.json({mensaje: 'El usuario fue eliminado'})
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+}
+exports.loginusuario = async (req, res, next) => {
+    try {
+        console.log(req.query.email);
+        console.log(req.query.password);
+        const usuario = await  Usuario.find({});
+        const usuarioLogin = usuario.filter( usuario => (usuario.email == req.query.email));
+        if(usuarioLogin.password == req.query.password){
+            console.log(usuarioLogin);
+            res.json(usuarioLogin);
+        }else{
+            next();
+        }
     } catch (error) {
         console.log(error);
         next();

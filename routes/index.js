@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const usuarioControler = require('../controllers/usuarioControllers');
 const vehiculoControler = require('../controllers/vehiculoControllers');
+const transaccionControllers = require('../controllers/transaccionControllers');
+const login = require('../controllers/login');
 
 module.exports = function() {
     // Agrega nuevos usuarios via POST
@@ -21,6 +23,10 @@ module.exports = function() {
     // Actualizar un registro con un ID especifico
     router.put('/usuarios/:id',
         usuarioControler.actualizarusuario
+    );
+
+    router.put('/recargar-usuarios/:id',
+        usuarioControler.recargarusuario
     );
 
     // Elimina un usuario por su ID
@@ -53,6 +59,24 @@ module.exports = function() {
     // Elimina un vehiculo por su ID
     router.delete('/vehiculos/:id',
         vehiculoControler.eliminarvehiculo
+    );
+
+    // Agrega nuevas transacciones via POST
+    router.post('/transacciones', 
+        transaccionControllers.nuevatransaccion
+    );
+
+    // Obtiene todos los registros de transacciones en la BD
+    router.get('/transacciones',
+    transaccionControllers.obtenertransacciones
+    );
+
+    router.get('/transacciones-usuarios/:iduser',
+    transaccionControllers.obtenertransaccionesusuario
+    );
+
+    router.post('/login',
+    login.login
     );
 
 

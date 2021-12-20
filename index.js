@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./routes');
+const routes = require('./routes/index');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -38,7 +38,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // habilitar routing
-app.use('/', routes())
+app.use('/', routes());
+// app.use('/login', login())
 
 
 // puerto y arrancar el servidor

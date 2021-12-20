@@ -30,10 +30,6 @@ const usuariosSchema = new Schema({
         type: String,
         trim: true
     },
-    tipo: {
-        type: String,
-        trim: true
-    },
     saldo: {
         type: String,
         trim: true
