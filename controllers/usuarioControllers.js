@@ -63,7 +63,7 @@ exports.recargarusuario = async (req, res, next) => {
     try {
         // console.log(req)
         cantidad = (req.body.params.cantidad);
-        console.log(cantidad)
+        console.log(req.params)
         const filter = { _id : req.params.id };
         const update = { saldo:cantidad };
         const usuario = await Usuario.updateOne(filter, update,{new:true});

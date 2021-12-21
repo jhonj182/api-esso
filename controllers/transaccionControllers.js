@@ -7,6 +7,7 @@ exports.nuevatransaccion = async (req, res, next )  => {
     const transaccion = new Transaccion(req.body);
     try {
         transaccion.save();
+        console.log(transaccion)
         res.json({ mensaje : 'La transaccion  se agregó correctamente'}); 
     } catch (error) {
         console.log(error);
